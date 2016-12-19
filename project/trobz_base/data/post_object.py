@@ -148,7 +148,7 @@ class post_object_trobz_base(models.TransientModel):
         """
         _logger.info('===================START trobz base post object')
         self.update_group_for_admin()
-        self.add_postgresql_unaccent_module()
+        # self.add_postgresql_unaccent_module()
         self.set_default_timezone()
         self.update_thousand_separator_grouping()
         self.update_language_date_format()
