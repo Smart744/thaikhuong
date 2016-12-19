@@ -31,6 +31,7 @@ This module will install all module dependencies of thaikhuong.
         'trobz_base',
         'web_ubiz_base',
         'sale',
+        'sale_margin',
         'purchase',
         'stock',
         'crm',
