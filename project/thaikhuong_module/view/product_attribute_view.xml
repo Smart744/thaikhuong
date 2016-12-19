@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+		<record id="view_product_attribute_inherit_tree" model="ir.ui.view">
+			<field name="name">view.product.attribute.inherit.tree</field>
+			<field name="model">product.attribute</field>
+			<field name="inherit_id" ref="product.attribute_tree_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="before">
+					<field name="attribute_category_id" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

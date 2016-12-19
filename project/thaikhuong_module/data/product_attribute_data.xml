@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!--Product Attributes -->
+		<record id="product_attribute_1" model="product.attribute">
+			<field name="name">Lưu lượng tối đa</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+		<record id="product_attribute_2" model="product.attribute">
+			<field name="name">Áp suất tối đa</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+		<record id="product_attribute_3" model="product.attribute">
+			<field name="name">Chất bơm</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+		<record id="product_attribute_4" model="product.attribute">
+			<field name="name">Độ nhớt</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+		<record id="product_attribute_5" model="product.attribute">
+			<field name="name">Nhiệt độ chất bơm</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+		<record id="product_attribute_6" model="product.attribute">
+			<field name="name">Tỷ trọng</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+		<record id="product_attribute_7" model="product.attribute">
+			<field name="name">Nhiệt độ tối đa</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+		<record id="product_attribute_8" model="product.attribute">
+			<field name="name">Kích thước cổng hút/xả</field>
+			<field name="attribute_category_id" ref="product_attribute_category0"></field>
+		</record>
+
+		<record id="product_attribute_9" model="product.attribute">
+			<field name="name">Đầu bơm</field>
+			<field name="attribute_category_id" ref="product_attribute_category1"></field>
+		</record>
+		<record id="product_attribute_10" model="product.attribute">
+			<field name="name">Valve (Ball)</field>
+			<field name="attribute_category_id" ref="product_attribute_category1"></field>
+		</record>
+		<record id="product_attribute_11" model="product.attribute">
+			<field name="name">Valve (Seat)</field>
+			<field name="attribute_category_id" ref="product_attribute_category1"></field>
+		</record>
+		<record id="product_attribute_12" model="product.attribute">
+			<field name="name">Màng</field>
+			<field name="attribute_category_id" ref="product_attribute_category1"></field>
+		</record>
+		<record id="product_attribute_13" model="product.attribute">
+			<field name="name">Valve gaskets</field>
+			<field name="attribute_category_id" ref="product_attribute_category1"></field>
+		</record>
+		<record id="product_attribute_14" model="product.attribute">
+			<field name="name">Piston</field>
+			<field name="attribute_category_id" ref="product_attribute_category1"></field>
+		</record>
+
+		<record id="product_attribute_15" model="product.attribute">
+			<field name="name">Công suất</field>
+			<field name="attribute_category_id" ref="product_attribute_category2"></field>
+		</record>
+		<record id="product_attribute_16" model="product.attribute">
+			<field name="name">Điện áp</field>
+			<field name="attribute_category_id" ref="product_attribute_category2"></field>
+		</record>
+		<record id="product_attribute_17" model="product.attribute">
+			<field name="name">IP</field>
+			<field name="attribute_category_id" ref="product_attribute_category2"></field>
+		</record>
+		<record id="product_attribute_18" model="product.attribute">
+			<field name="name">Tốc độ motor</field>
+			<field name="attribute_category_id" ref="product_attribute_category2"></field>
+		</record>
+		<record id="product_attribute_19" model="product.attribute">
+			<field name="name"> Cấp bảo vệ</field>
+			<field name="attribute_category_id" ref="product_attribute_category2"></field>
+		</record>
+		<record id="product_attribute_20" model="product.attribute">
+			<field name="name">Cấp chịu nhiệt</field>
+			<field name="attribute_category_id" ref="product_attribute_category2"></field>
+		</record>
+
+	</data>
+</odoo>

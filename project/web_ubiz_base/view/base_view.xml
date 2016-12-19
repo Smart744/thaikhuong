@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+	<!-- Remove menu about user -->
+	<t t-extend="UserMenu">
+		<t t-jquery="a[data-menu='about']">
+			this.parent().remove();
+		</t>
+	</t>
+
+	<!-- Remove Enterprise Linsence -->
+	<t t-extend="DashboardEnterprise">
+		<t t-jquery="div[class='text-center o_web_settings_dashboard_enterprise']">
+			this.parent().remove();
+		</t>
+	</t>
+</templates>

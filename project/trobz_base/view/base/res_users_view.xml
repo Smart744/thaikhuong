@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- add field password inside user form view -->
+        <record id="view_res_users_form_adjust_password" model="ir.ui.view">
+            <field name="name">trobz.res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <div class="oe_title" position="replace">
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                            <label for="login" class="oe_edit_only"/>
+                            <h2><field name="login"/></h2>
+                            <label for="new_password" class="oe_edit_only"/>
+                            <!-- We use field "new_password" instead of "password" becasue
+                            we don't want content of field "password" will be shown up to users -->
+                            <h2><field name="new_password" password="True" attrs="{'required': [('id','=',False)]}"/></h2>
+                        </div>
+                    </div>
+                    <field name="notify_email" position="before">
+                        <field name="email" required="1"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

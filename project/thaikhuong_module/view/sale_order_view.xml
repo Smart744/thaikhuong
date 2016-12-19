@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+		<record id="view_sale_order_form_inherit" model="ir.ui.view">
+			<field name="name">view.sale.order.form.inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="products_of_quotation" />
+					<field name="expiration_quotation" />
+					<field name="delivery_lead_time" />
+				</xpath>
+				<xpath expr="//field[@name='payment_term_id']" position="after">
+					<field name="delivery_address" />
+					<field name="warranty_description" />
+				</xpath>
+				<xpath expr="//field[@name='margin']" position="attributes">
+					<attribute name="groups">base.group_system</attribute>
+				</xpath>
+				<xpath
+					expr="//field[@name='order_line']/tree//field[@name='purchase_price']"
+					position="replace">
+					<field name="purchase_price" groups="base.group_system" />
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="view_sale_order_tree_inherit" model="ir.ui.view">
+			<field name="name">view.sale.order.tree.inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='amount_total']" position="after">
+					<field name="margin" groups="base.group_system"/>
+				</xpath>
+				
+			</field>
+		</record>
+		
+		<record id="view_sale_quotation_tree_inherit" model="ir.ui.view">
+			<field name="name">view.sale.quotation.tree.inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_quotation_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='amount_total']" position="after">
+					<field name="margin" groups="base.group_system"/>
+				</xpath>
+				
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="sale_margin_sale_order_line_inherit">
+			<field name="name">sale.order.line.margin.view.form.inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='purchase_price']" position="replace">
+					<field name="purchase_price" groups="base.group_system" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Companies -->
+		<record id="base.main_company" model="res.company">
+			<field name="name">CÔNG TY TNHH KỸ THUẬT THƯƠNG MẠI THÁI KHƯƠNG</field>
+			<field name="partner_id" ref="base.main_partner" />
+			<field name="phone">(+84) 8 3813 4728 / 4729</field>
+			<field name="fax">(+84) 8 3813 4727</field>
+			<field name="email">nguyensang@thaikhuongpump.com</field>
+			<field name="street">38A Phan Văn Sửu, Phường 13</field>
+			<field name="city">Quận Tân Bình</field>
+			<field name="country_id">243</field>
+			<field name="rml_header1">Pumping solution for all industry needs</field>
+			<field name="webiste">http://thaikhuongpump.com/</field>
+			<field name="currency_id" ref="base.VND" />
+		</record>
+
+		<record id="company_logo_path" model="ir.config_parameter">
+			<field name="key">Company logo path</field>
+			<field name="value">thaikhuong_module,data/logo.png</field>
+		</record>
+
+	</data>
+</openerp>

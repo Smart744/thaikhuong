@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1: -->
+<templates id="template" xml:space="preserve">
+    <t t-name="CrashManager.error">
+        <div class="oe_error_send">
+            <div>
+                <div>
+                    <b>
+                        Please create a support ticket on <a href="https://support.trobz.com/" target="_blank">support.trobz.com</a> to notify Trobz about this issue with the below information:
+                    </b>
+                </div>
+                <ul>
+                    <li>Time when the problem occurred</li>
+                    <li>Error message</li>
+                    <li>Steps to reproduce the problem</li>
+                    <li>Reference of the object (Sale Order, Packing, Purchase Order, Invoice, ...) for which the problem appeared</li>
+                </ul>
+                <div>
+                    <b>
+                    In case you do not have an account on the support tool, please contact the person in charge in your organization or send an email to <a t-attf-href="mailto:#{email}" target="_blank"><t t-esc="email" /></a>
+                    </b>
+                </div>
+            </div>
+        </div><br/>
+        <div class="oe_error_detail">
+            <pre><t t-esc="error.message"/></pre>
+            <hr/>
+            <pre><t t-esc="error.data.debug"/></pre>
+        </div>
+    </t>
+</templates>

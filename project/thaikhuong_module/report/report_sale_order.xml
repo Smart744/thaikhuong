@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="sale.report_saleorder_document">
+			<!--START HEADER PHASE 1 -->
+			<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+			<div class="page"
+				style="font-family: 'Times New Roman' !important; font-size:14px;">
+				<div class="row">
+					<div class="col-xs-12" name="company_address">
+						<img width="100%" src="/thaikhuong_module/static/src/img/header.jpg"></img>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-xs-12">
+						<table width="100%" class="table table-bordered">
+							<tr>
+								<td width="60%">
+									<b>
+										Dear:
+										<span t-field="doc.partner_id.name" />
+									</b>
+								</td>
+								<td width="40%">
+									Quotation Date:
+									<span t-field="doc.date_order" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Contact:
+									<b>
+										<span t-field="doc.partner_id.name" />
+									</b>
+								</td>
+								<td>
+									From:
+									<strong>
+										<span t-field="doc.user_id.name" />
+									</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Phone:
+									<span t-field="doc.partner_id.phone" />
+								</td>
+								<td>
+									Phone:
+									<span t-field="doc.company_id.phone" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Fax:
+									<span t-field="doc.partner_id.fax" />
+								</td>
+								<td>
+									Fax:
+									<span t-field="doc.company_id.fax" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Mobile:
+									<strong>
+										<span t-field="doc.partner_id.mobile" />
+									</strong>
+								</td>
+								<td>
+									Mobile:
+									<strong>
+										<span t-field="doc.user_id.partner_id.mobile" />
+									</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Email:
+									<span style="color: #194078" t-field="doc.partner_id.email" />
+								</td>
+								<td>
+									Email:
+									<span style="color: #194078" t-field="doc.company_id.email" />
+								</td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+				<div class="row" style="text-align:center;">
+					<span t-if="doc.state in ['draft','sent']">
+						<h2>QUOTATION</h2>
+					</span>
+					<span t-if="doc.state not in ['draft','sent']">
+						<h2>Order N° </h2>
+					</span>
+					<h2>
+						<span t-field="doc.name" />
+					</h2>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<p>
+							Cảm ơn Quý công ty về yêu cầu báo giá
+							<span style="color:#194078;" t-field="doc.products_of_quotation"></span>
+							. Chúng tôi xin trân trọng gởi đến Quý công ty
+							bảng báo giá với
+							những thông số kỹ thuật được mô tả như ở bên
+							dưới:
+						</p>
+					</div>
+				</div>
+
+				<!--START BODY PHASE 2 -->
+				<div class="row">
+					<div class="col-xs-12">
+						<t t-foreach="doc.order_lines_layouted()" t-as="page">
+							<table class="table table-bordered">
+								<thead style="text-align:center;">
+									<tr>
+										<th style="background-color: #FFC300;">Sequence</th>
+										<th style="background-color: #FFC300;">Technical Specifications</th>
+										<th style="background-color: #FFC300;">Qty</th>
+										<th style="background-color: #FFC300;">Unit Price</th>
+										<th style="background-color: #FFC300;" t-if="display_discount"
+											groups="sale.group_discount_per_so_line">Disc.(%)</th>
+										<!-- th style="background-color: #FFC300;">Taxes</th-->
+										<th style="background-color: #FFC300;" groups="sale.group_show_price_subtotal">Price</th>
+										<th style="background-color: #FFC300;" class="price_tax_included"
+											groups="sale.group_show_price_total">Total Price
+										</th>
+										<th style="background-color: #FFC300;">Note</th>
+									</tr>
+								</thead>
+
+								<tbody class="sale_tbody">
+									<t t-foreach="page" t-as="layout_category">
+										<t t-set="i" t-value="1"></t>
+										<!-- Is there a discount on at least one line? -->
+										<t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])" />
+										<!-- Lines associated -->
+										<t t-foreach="layout_category['lines']" t-as="l">
+											<tr>
+												<td>
+													<span t-esc="i" />
+												</td>
+												<td>
+													<p>
+														<strong>
+															<span t-field="l.product_id.name" />
+															<br />
+															<span t-raw="l.product_id.description_sale"></span>
+															<br />
+															- Model:
+															<span t-raw="l.product_id.barcode"></span>
+														</strong>
+														<br />
+														<span t-raw="l.product_id._get_product_attribute_variants()" />
+													</p>
+												</td>
+												<td class="text-right">
+													<span t-esc="l.product_uom_qty" />
+													<span t-field="l.product_uom" groups="product.group_uom" />
+												</td>
+												<td class="text-right">
+													<span t-field="l.price_unit"
+														t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}' />
+												</td>
+												<td t-if="display_discount" class="text-right"
+													groups="sale.group_discount_per_so_line">
+													<span t-field="l.discount" />
+												</td>
+												<!-- td class="text-right">
+													<span
+														t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))" />
+												</td-->
+												<td class="text-right" groups="sale.group_show_price_subtotal">
+													<span t-field="l.price_subtotal"
+														t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}' />
+												</td>
+												<td class="text-right" groups="sale.group_show_price_total">
+													<span t-field="l.price_total"
+														t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}' />
+												</td>
+												<td>
+													<t t-if="l.product_id.qty_available >= l.product_uom_qty">
+														<p style="color:red;">Available</p>
+													</t>
+													<t t-if="l.product_id.qty_available &lt; l.product_uom_qty">
+														<p style="color:red;">Not Available</p>
+													</t>
+												</td>
+											</tr>
+											<t t-set="i" t-value="i+1"></t>
+										</t>
+										<t
+											t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']"
+											groups="sale.group_sale_layout">
+											<tr class="text-right">
+												<td colspan="6">
+													<strong>Subtotal: </strong>
+													<t t-set="subtotal"
+														t-value="sum(line.price_subtotal for line in layout_category['lines'])" />
+													<span t-esc="subtotal"
+														t-options="{'widget': 'monetary', 'display_currency': doc.pricelist_id.currency_id}" />
+												</td>
+											</tr>
+										</t>
+									</t>
+								</tbody>
+							</table>
+
+							<div class="row" name="total">
+								<div class="col-xs-6 pull-right">
+									<table class="table table-condensed">
+										<tr class="border-black">
+											<td>
+												<strong>Total Without Taxes</strong>
+											</td>
+											<td class="text-right">
+												<span t-field="doc.amount_untaxed"
+													t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}' />
+											</td>
+										</tr>
+										<t t-foreach="doc._get_tax_amount_by_group()" t-as="amount_by_group">
+											<tr>
+												<td>
+													<span t-esc="amount_by_group[0] or 'Taxes'" />
+												</td>
+												<td class="text-right">
+													<span t-esc="amount_by_group[1]" />
+												</td>
+											</tr>
+										</t>
+										<tr class="border-black">
+											<td>
+												<strong>Total</strong>
+											</td>
+											<td class="text-right">
+												<span t-field="doc.amount_total"
+													t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}' />
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+
+							<t t-if="page_index &lt; page_size - 1" groups="sale.group_sale_layout">
+								<p style="page-break-before:always;">
+								</p>
+							</t>
+						</t>
+					</div>
+				</div>
+
+				<div class="col-xs-12">
+					<strong>TERM AND CONDITIONS</strong>
+					<table class="table table-bordered">
+						<tr>
+							<td width="30%">Price</td>
+							<td width="70%">
+								<div class="col-xs-12">: Apply by VNĐ, not inclue VAT 10%</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Payment Conditions</td>
+							<td>
+								<div name="payment_term" t-if="doc.payment_term_id" class="col-xs-12">
+									<p>
+										:
+										<span t-field="doc.payment_term_id" />
+										<t t-if="doc.payment_term_id.note">
+											,
+											<span t-field="doc.payment_term_id.note" />
+										</t>
+									</p>
+								</div>
+								<t t-if="not doc.payment_term_id">
+									:
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td>Delivery lead time</td>
+							<td>
+								<div class="col-xs-12">
+									:
+									<span t-field="doc.delivery_lead_time" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Delivery Address</td>
+							<td>
+								<div class="col-xs-12">
+									:
+									<span t-field="doc.delivery_address" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Quotation Value</td>
+							<td>
+								<div class="col-xs-12">
+									:
+									<span t-field="doc.expiration_quotation" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Warranty Time</td>
+							<td>
+								<div class="col-xs-12">
+									:
+									<span t-field="doc.warranty_description" />
+								</div>
+							</td>
+						</tr>
+					</table>
+
+				</div>
+
+				<p t-field="doc.note" />
+				<p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.note">
+					<strong>Fiscal Position Remark:</strong>
+					<span t-field="doc.fiscal_position_id.note" />
+				</p>
+				<div class="oe_structure" />
+
+
+				<div class="col-xs-12">
+					<p style="font-size:18px;">
+						Hy vọng bảng chào giá của chúng tôi sẽ đáp ứng được yêu cầu của
+						Quý công ty và mong sớm nhận đơn đặt hàng từ Quý công ty.
+						<br />
+						<br />
+						Trân trọng,
+					</p>
+				</div>
+				<div class="col-xs-12">
+					<p>
+						<strong>
+							<span t-field="doc.user_id.partner_id.name" />
+						</strong>
+					</p>
+					<p>
+						Mobile:
+						<span t-field="doc.user_id.partner_id.mobile" />
+					</p>
+					<h4>
+						<span style="color: #194078;">Công ty TNHH KT TM</span>
+						<span style="color:red;">THÁI KHƯƠNG </span>
+					</h4>
+				</div>
+
+			</div>
+
+		</template>
+
+	</data>
+
+	<record id="sale.report_sale_order" model="ir.actions.report.xml">
+		<field name="paperformat_id" ref="thaikhuong_module.custom_paper" />
+	</record>
+</odoo>

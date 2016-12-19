@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="login_layout_inherit" name="Login Layout"
+			inherit_id="web.login_layout" customize_show="True">
+			<xpath expr="//img" position="replace">
+				<img style="width:200px;" src="/web_ubiz_base/static/src/img/company_logo.png" />
+			</xpath>
+			<xpath expr="//a[@href='https://www.odoo.com']" position="replace">
+				
+			</xpath>
+
+		</template>
+
+		<template id="menu_secondary_inherit" name="Remove Power By"
+			inherit_id="web.menu_secondary" customize_show="True">
+			<xpath expr="//div[@class='o_sub_menu_footer']" position="replace">
+			</xpath>
+		</template>
+
+		<template id="layout_inherite" name="Web layout" inherit_id="web.layout"
+			customize_show="True">
+			<xpath expr="//title" position="replace">
+				<title>Ubiz</title>
+			</xpath>
+			<xpath expr="//link" position="replace">
+				<link rel="shortcut icon" href="/web_ubiz_base/static/src/img/favicon.ico"
+					type="image/x-icon" />
+			</xpath>
+		</template>
+
+		<template id="custom_title" name="change title" inherit_id="web.layout">
+			<xpath expr="//title" position="replace">
+				<title>Ubiz</title>
+			</xpath>
+		</template>
+
+	</data>
+</odoo>

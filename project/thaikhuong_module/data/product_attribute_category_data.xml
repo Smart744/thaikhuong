@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!--Product Attribute Categories -->
+		<record id="product_attribute_category0" model="product.attribute.category">
+			<field name="name">Thông số kỹ thuật</field>
+			<field name="sequence">0</field>
+		</record>
+		<record id="product_attribute_category1" model="product.attribute.category">
+			<field name="name">Vật liệu cấu tạo</field>
+			<field name="sequence">1</field>
+		</record>
+		<record id="product_attribute_category2" model="product.attribute.category">
+			<field name="name">Thông tin phần dẫn động</field>
+			<field name="sequence">2</field>
+		</record>
+	</data>
+</odoo>

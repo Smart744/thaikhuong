@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="p_sale_user" model="res.groups">
+			<field name="name">[C] - Sales Users</field>
+			<field name="is_profile" eval="True" />
+			<field name="implied_ids"
+				eval="[(6,0, [ref('sales_team.group_sale_salesman')])]" />
+		</record>
+
+		<record id="p_sale_manager" model="res.groups">
+			<field name="name">[C] - Sales Managers</field>
+			<field name="is_profile" eval="True" />
+			<field name="implied_ids"
+				eval="[(6,0, [ref('sales_team.group_sale_salesman_all_leads')])]" />
+		</record>
+
+		<record id="p_inventory_user" model="res.groups">
+			<field name="name">[C] - Inventory Users</field>
+			<field name="is_profile" eval="True" />
+			<field name="implied_ids"
+				eval="[(6,0, [ref('stock.group_stock_user')])]" />
+		</record>
+
+		<record id="p_inventory_manager" model="res.groups">
+			<field name="name">[C] - Inventory Managers</field>
+			<field name="is_profile" eval="True" />
+			<field name="implied_ids"
+				eval="[(6,0, [ref('stock.group_stock_manager')])]" />
+		</record>
+
+		<record id="p_purchase_user" model="res.groups">
+			<field name="name">[C] - Purchase Users</field>
+			<field name="is_profile" eval="True" />
+			<field name="implied_ids"
+				eval="[(6,0, [ref('purchase.group_purchase_user')])]" />
+		</record>
+
+		<record id="p_purchase_manager" model="res.groups">
+			<field name="name">[C] - Purchase Managers</field>
+			<field name="is_profile" eval="True" />
+			<field name="implied_ids"
+				eval="[(6,0, [ref('purchase.group_purchase_manager')])]" />
+		</record>
+
+	</data>
+</odoo>

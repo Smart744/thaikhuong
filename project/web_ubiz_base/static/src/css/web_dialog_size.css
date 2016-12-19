@@ -1,0 +1,23 @@
+.modal .modal-header button.dialog_button_extend {
+    padding-right: 5px;
+}
+
+.modal .modal-header button.dialog_button_restore {
+    padding-right: 5px;
+}
+
+.dialog_full_screen {
+    width: calc(100% - 50px);
+}
+
+.modal .modal-header button.close {
+    font-size: 18px;
+}
+.o_mail_annoying_notification_bar{
+	display:none !important;
+}
+
+.o_web_settings_dashboard_share{
+	display:none !important;
+}
+
