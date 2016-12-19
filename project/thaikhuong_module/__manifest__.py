@@ -61,7 +61,7 @@ This module will install all module dependencies of thaikhuong.
         # 'view/',
         'view/product_attribute_category_view.xml',
         'view/product_attribute_view.xml',
-        'view/sale_order_view.xml',
+        # 'view/sale_order_view.xml',
         'view/product_template_view.xml',
         'view/stock_inventory_view.xml',
 
