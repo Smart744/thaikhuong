@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+    
+		<record id="sequence_trobz_sync_setting" model="ir.sequence">
+            <field name="name">Sequence for the sync setting TMS</field>
+            <field name="code">trobz.sync.setting</field>
+            <field name="implementation">no_gap</field>
+            <field name="number_increment">10</field>
+            <field name="padding">1</field>
+        </record>
+        
+    </data>
+</openerp>

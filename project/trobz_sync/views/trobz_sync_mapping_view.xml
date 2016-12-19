@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- List view -->
+		<record id="trobz_sync_mapping_tree" model="ir.ui.view">
+			<field name="name">trobz.sync.mapping.tree</field>
+			<field name="model">trobz.sync.mapping</field>
+			<field name="arch" type="xml">
+				<tree string="Synchronization Map">
+					<field name="sequence"/>
+                    <field name="setting_seq" invisible="1"/>
+					<field name="src_model_id"/>
+					<field name="remote_model"/>
+					<field name="setting_id"/>
+					<field name="use_specific_sync"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Form view -->
+		<record id="trobz_sync_mapping_form" model="ir.ui.view">
+			<field name="name">trobz.sync.mapping.form</field>
+			<field name="model">trobz.sync.mapping</field>
+			<field name="arch" type="xml">
+				<form string="Synchronization Map">
+					<header>
+						<button string="Synchronize" name="button_synchronize" type='object' class="oe_highlight"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only"/>
+							<h1>
+								<field name="name"/>
+							</h1>
+						</div>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="trobz_base.group_configure_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                            <button name="%(action_view_sync_record)d"
+                                type="action" groups="trobz_base.group_configure_user"
+                                class="oe_stat_button" icon="fa-tasks"
+                                context="{'search_default_mapping_id': active_id, 'search_default_group_by_state': 1}">
+                                <field name="total_records" widget="statinfo" string="Records"/>
+                            </button>
+                        </div>
+						<group col="4" colspan="4">
+                            <group>
+                                <field name="src_model_id"/>
+                                <field name="remote_model"/>
+                                <field name="setting_id"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group>
+                                <field name="last_sync_date"/>
+                                <field name="success_records"/>
+                                <field name="fail_records"/>
+                                <field name="active" groups="base.group_no_one"/>
+                            </group>
+						</group>
+						<notebook>
+							<page string="Fields Mapping">
+								<group colspan="4" col="4">
+									<field name="src_fields" colspan="4" height="50"/>
+									<field name="remote_fields" colspan="4" height="50"/>
+                                </group>
+                                <group>
+                                    <group string="Default Values">
+									    <field name="defaults" nolabel="1" height="50"/>
+                                    </group>
+                                    <group string="Conditions">
+                                        <field name="filter_domain" nolabel="1" height="50"/>
+                                    </group>
+								</group>
+							</page>
+							<page string="Advanced Configuration">
+								<group colspan="4" col="4">
+									<field name="has_active_field"/>
+									<newline/>
+									<field name="unique_fields" colspan="4" height="50"/>
+									<newline/>
+									<field name="use_specific_sync"/>
+									<field name="sync_function" attrs="{'invisible': [('use_specific_sync', '=', False)], 'required': [('use_specific_sync', '=', 1)]}"/>
+									<newline/>
+									<field name="specific_mapping" colspan="4" height="50"/>
+									<field name="post_script" colspan="4" height="50"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record id="trobz_sync_mapping_search" model="ir.ui.view">
+			<field name="name">trobz.sync.mapping.search</field>
+			<field name="model">trobz.sync.mapping</field>
+			<field name="arch" type="xml">
+				<search string="Synchronization Map">
+					<field name="src_model_id"/>
+					<field name="remote_model"/>
+					<field name="setting_id"/>
+					<filter name="use_specific_sync" string="Specific Synchronization" domain="[('use_specific_sync', '=', True)]"/>
+					<group expand="1" string="Group By...">
+						<filter name="group_by_src_model" string="Source Model" context="{'group_by': 'src_model_id'}"/>
+						<separator orientation="vertical"/>
+						<filter name="group_by_remote_model" string="Remote Model" context="{'group_by': 'remote_model'}"/>
+						<separator orientation="vertical"/>
+						<filter name="group_by_setting" string="Setting" context="{'group_by': 'setting_id'}"/>
+						<separator orientation="vertical"/>
+						<filter name="group_by_use_specific_sync" string="Specific Synchronization" context="{'group_by': 'use_specific_sync'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- List view -->
+		<record id="trobz_sync_setting_tree" model="ir.ui.view">
+			<field name="name">trobz.sync.setting.tree</field>
+			<field name="model">trobz.sync.setting</field>
+			<field name="arch" type="xml">
+				<tree string="Synchronization Setting">
+                    <field name="sequence" widget="handle"/>
+					<field name="base_url"/>
+					<field name="database"/>
+					<field name="login"/>
+					<field name="login_handler"/>
+					<field name="main_handler"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Form view -->
+		<record id="trobz_sync_setting_form" model="ir.ui.view">
+			<field name="name">trobz.sync.setting.form</field>
+			<field name="model">trobz.sync.setting</field>
+			<field name="arch" type="xml">
+				<form string="Synchronization Setting">
+					<header>
+						<button string="Synchronize" name="button_synchronize" type='object' class="oe_highlight"/>
+						<button string="Full Synchronize" name="button_synchronize" type='object'
+                                context="{'is_sync_all': True}" class="oe_highlight"/>
+						<button string="Test Connection" name="test_connection" type='object'/>
+	                </header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1>
+	                        	<field name="name"/>
+	                        </h1>
+	                    </div>
+                        <!-- TODO: add buttons to see the list of mappings, records and logs -->
+						<group col="4" colspan="4">
+                            <group string="XMLRPC">
+                                <field name="host"/>
+                                <field name="port"/>
+                                <field name="is_https"/>
+                                <field name="login_handler"/>
+                                <field name="main_handler"/>
+                            </group>
+                            <group col="2">
+                                <group string="Login" col="2" colspan="2">
+                                    <field name="database"/>
+                                    <field name="login"/>
+                                    <field name="password" password="1"/>
+                                </group>
+    							<group string="HTTPS" col="2" colspan="2"
+                                        attrs="{'invisible': [('is_https', '=', False)]}">
+        							<field name="https_user"/>
+        							<field name="https_password" password="1"/>
+    							</group>
+                            </group>
+                        </group>
+                        <group string="Other Information" col="4" colspan="4">
+                            <field name="sequence"/>
+							<field name="max_attempts"/>
+							<field name="sleep_time"/>
+                            <field name="limit_record"/>
+                            <field name="ir_cron_id" readonly="1"/>
+                            <field name="last_check" readonly="1"/>
+							<field name="active"/>
+                        </group>
+                        <separator string="Notes"/>
+                        <field name="note"/>
+					</sheet>
+					<div class="oe_chatter">
+                    	<field name="message_follower_ids" widget="mail_followers"/>
+                    	<field name="message_ids" widget="mail_thread"/>
+                	</div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record id="trobz_sync_setting_search" model="ir.ui.view">
+			<field name="name">trobz.sync.setting.search</field>
+			<field name="model">trobz.sync.setting</field>
+			<field name="arch" type="xml">
+				<search string="Synchronization Setting">
+					<field name="host"/>
+					<field name="login"/>
+					<field name="database"/>
+					<field name="login_handler"/>
+					<field name="main_handler"/>
+					<field name="port"/>
+					<filter name="last_check_fail" string="Failed to Check" domain="[('last_check', '=', 'fail')]"/>
+                    <separator/>
+					<filter name="use_https" string="Use HTTPS" domain="[('is_https', '=', 1)]"/>
+					<group expand="1" string="Group By...">
+                        <filter name="group_by_host" string="Host" context="{'group_by': 'host'}"/>
+                        <separator/>
+                        <filter name="group_by_last_check" string="Last Check" context="{'group_by': 'last_check'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Actions -->
+        <!-- Sync Setting -->
+        <record id="action_view_sync_setting" model="ir.actions.act_window">
+            <field name="name">Sync Settings</field>
+            <field name="res_model">trobz.sync.setting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--  Allow to select some synchronization settings to synchronize -->
+        <record id="action_server_synchronize_list_settings" model="ir.actions.server">
+            <field name="name">Synchronize</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_trobz_sync_setting" />
+            <field name="state">code</field>
+            <field name="code">self.deferred_synchronize(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+
+        <record model="ir.values" id="action_synchronize_list_settings">
+            <field name="name">action_synchronize_list_settings</field>
+            <field name="action_id" ref="action_server_synchronize_list_settings" />
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_server_synchronize_list_settings'))" />
+            <field name="key">action</field>
+            <field name="model_id" ref="model_trobz_sync_setting" />
+            <field name="model">trobz.sync.setting</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <!-- Sync Mapping -->
+        <record id="action_view_sync_mapping" model="ir.actions.act_window">
+            <field name="name">Sync Mapping</field>
+            <field name="res_model">trobz.sync.mapping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--  Allow to select some synchronization mappings to synchronize -->
+        <record id="action_server_synchronize_list_mappings" model="ir.actions.server">
+            <field name="name">Synchronize</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_trobz_sync_mapping" />
+            <field name="state">code</field>
+            <field name="code">self.deferred_synchronize(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+
+        <record model="ir.values" id="action_synchronize_list_mappings">
+            <field name="name">action_synchronize_list_mappings</field>
+            <field name="action_id" ref="action_server_synchronize_list_mappings" />
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_server_synchronize_list_mappings'))" />
+            <field name="key">action</field>
+            <field name="model_id" ref="model_trobz_sync_mapping" />
+            <field name="model">trobz.sync.mapping</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <!-- Sync Record -->
+        <record id="action_view_sync_record" model="ir.actions.act_window">
+            <field name="name">Sync Records</field>
+            <field name="res_model">trobz.sync.record</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Sync Log -->
+        <record id="action_view_sync_log" model="ir.actions.act_window">
+            <field name="name">Sync Logs</field>
+            <field name="res_model">trobz.sync.log</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menus -->
+    	<!-- Sync -->
+        <menuitem 
+            name="Synchronization"
+            id="sync_root_menu"
+            parent="trobz_base.admin_menu"
+            />
+
+        <menuitem 
+            name="Sync Settings"
+            id="sync_setting_menu"
+            parent="sync_root_menu"
+            action="action_view_sync_setting"
+            sequence="10"
+            />
+
+        <menuitem 
+            name="Sync Mapping"
+            id="sync_mapping_menu"
+            parent="sync_root_menu"
+            action="action_view_sync_mapping"
+            sequence="20"
+            />
+
+        <menuitem 
+            name="Sync Records"
+            id="sync_record_menu"
+            parent="sync_root_menu"
+            action="action_view_sync_record"
+            sequence="30"
+            />
+
+        <menuitem 
+            name="Sync Logs"
+            id="sync_log_menu"
+            parent="sync_root_menu"
+            action="action_view_sync_log"
+            sequence="30"
+            />
+
+    </data>
+</openerp>

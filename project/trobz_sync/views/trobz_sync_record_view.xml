@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- List view -->
+		<record id="trobz_sync_record_tree" model="ir.ui.view">
+			<field name="name">trobz.sync.record.tree</field>
+			<field name="model">trobz.sync.record</field>
+			<field name="arch" type="xml">
+				<tree string="Synchronization Records">
+					<field name="mapping_id"/>
+					<field name="id_src"/>
+					<field name="id_remote"/>
+					<field name="state"/>
+					<field name="date"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Form view -->
+		<record id="trobz_sync_record_form" model="ir.ui.view">
+			<field name="name">trobz.sync.record.form</field>
+			<field name="model">trobz.sync.record</field>
+			<field name="arch" type="xml">
+				<form string="Synchronization Records">
+					<header>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,running,success" statusbar_colors='{"fail":"red"}'/>
+	                </header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1>
+	                        	<field name="name"/>
+	                        </h1>           
+	                    </div>
+						<group col="4" colspan="4">
+                            <group>
+    							<field name="mapping_id"/>
+    							<field name="id_src"/>
+    							<field name="id_remote"/>
+                            </group>
+                            <group>
+    							<field name="date"/>
+    							<field name="is_deleted" groups="base.group_no_one"/>
+    							<field name="active" groups="base.group_no_one"/>
+                            </group>
+						</group>
+                        <separator string="Notes" colspan="4"/>
+                        <field name="note" colspan="4" placeholder="Note..."/>
+					</sheet>
+					<div class="oe_chatter">
+                    	<field name="message_follower_ids" widget="mail_followers"/>
+                    	<field name="message_ids" widget="mail_thread"/>
+                	</div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record id="trobz_sync_record_search" model="ir.ui.view">
+			<field name="name">trobz.sync.record.search</field>
+			<field name="model">trobz.sync.record</field>
+			<field name="arch" type="xml">
+				<search string="Synchronization Records">
+					<field name="mapping_id"/>
+					<field name="id_src"/>
+					<field name="id_remote"/>
+					<field name="state"/>
+					<field name="date"/>
+					<filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                    <filter name="success" string="Success" domain="[('state', '=', 'success')]"/>
+                    <filter name="fail" string="Failed" domain="[('state', '=', 'fail')]"/>
+                    <separator/>
+                    <filter name="deleted" string="Deleted Record" domain="[('is_deleted', '=', True)]"/>
+					<group expand="1" string="Group By...">
+                        <filter name="group_by_mapping" string="Sync Mapping" context="{'group_by': 'mapping_id'}"/>
+                        <separator/>
+                        <filter name="group_by_state" string="Last Synchronization Status" context="{'group_by': 'state'}"/>
+                        <separator/>
+                        <filter name="group_by_date" string="Last Synchronization Date" context="{'group_by': 'date'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+	</data>
+</openerp>

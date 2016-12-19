@@ -1,0 +1,61 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">Module To Access Right Generator</h2>
+        </div>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span10">
+            <h3 class="oe_slogan">How To Use</h3>
+        </div>
+        <div class="oe_span10">
+            <p class="oe_mt32">
+                <ol>
+	                <li><b>Create data in file security_set_up.py in each project</b>
+	                    <ul>
+	                        <li>
+	                            [1,1,1,1]: present 4 permissions: "perm_read", "perm_write", "perm_create", "perm_unlink"
+	                        </li>
+	                        <li><b>Example:</b>
+	                            <ul>
+	                                <li>g_hr_employee = "Employee"</li>
+	                                <li>g_user = "User"</li>
+	                                <li>g_manuf_user = "Manufacturing / Manager"</li>
+	                                <li>g_all = '' (all groups)</li>
+	                                <li>MODEL_ACCESS_RIGHTS = {<br/>
+	                                    ('nationality','accident.type.category', 'accident.type.rate',
+	                                    'activity.naf','admin.activity.type', 'admin.skill.activity',
+	                                    'admin.skill', 'autonomy.level'): {<br/>
+	                                    (g_hr_employee,g_user) : [0,1,1,1],<br/>
+	                                    (g_all):[1,1,1,1] }<br/>
+	                                    }<br/>
+	                                </li>
+	                                <li>or MODEL_ACCESS_RIGHTS = {<br/>
+	                                    'mrp.bom': { g_hr_employee: [1,1,0,1]<br/>
+	                                    },<br/>
+	                                    'hr.employee': {<br/>
+	                                    g_hr_employee : [1,1,0,1],<br/>
+	                                    g_manuf_user: [1,0,0,1],<br/>
+	                                    g_all: [1,1,1,1] }<br/>
+	                                }</li>
+	                            </ul>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li><b>Update context</b>
+	                    <ul>
+	                        <li>context.update({'module_name': 'your_module_name'})</li>
+	                    </ul>
+	                </li>
+	                <li><b>Call Function</b>
+	                    <ul>
+	                        <li>self.env['access.right.generator'].with_context(module_name='test_module').<br/>create_model_access_rights(MODEL_ACCESS_RIGHTS)</li>
+	                    </ul>
+	                </li>
+            	</ol>
+            </p>
+        </div>
+    </div>
+</section>

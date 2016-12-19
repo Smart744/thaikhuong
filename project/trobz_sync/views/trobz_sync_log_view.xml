@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- List view -->
+		<record id="trobz_sync_log_tree" model="ir.ui.view">
+			<field name="name">trobz.sync.log.tree</field>
+			<field name="model">trobz.sync.log</field>
+			<field name="arch" type="xml">
+				<tree string="Synchronization Logs">
+					<field name="name"/>
+					<field name="setting_id"/>
+					<field name="error_msg"/>
+					<field name="create_date"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Form view -->
+		<record id="trobz_sync_log_form" model="ir.ui.view">
+			<field name="name">trobz.sync.log.form</field>
+			<field name="model">trobz.sync.log</field>
+			<field name="arch" type="xml">
+				<form string="Synchronization Logs">
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1>
+	                        	<field name="name"/>
+	                        </h1>           
+	                    </div>
+						<group col="4" colspan="4">
+                            <group>
+    							<field name="setting_id"/>
+    							<field name="create_date"/>
+                            </group>
+                            <group>
+    							<field name="error_msg"/>
+    							<field name="warning_msg"/>
+                            </group>
+						</group>
+                        <separator string="Log"/>
+                        <field name="log" widget="html" colspan="4" placeholder="Log..."/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record id="trobz_sync_log_search" model="ir.ui.view">
+			<field name="name">trobz.sync.log.search</field>
+			<field name="model">trobz.sync.log</field>
+			<field name="arch" type="xml">
+				<search string="Synchronization Logs">
+					<field name="name"/>
+					<field name="setting_id"/>
+					<field name="create_date"/>
+					<group expand="1" string="Group By...">
+                        <filter name="group_by_setting" string="Sync Setting" context="{'group_by': 'setting_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter name="group_by_create_state" string="Synchronization Date" context="{'group_by': 'create_date:day'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+	</data>
+</openerp>

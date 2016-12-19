@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+
+		<record id="tfa_del_trobz_sync_log" model="ir.cron">
+			<field name="name">Trobz Sync: Auto Delete Trobz Sync Logs less than 7 days ago</field>
+			<field name="user_id" eval="1" />
+			<field name="active" eval="1" />
+			<field name="interval_number" eval="1" />
+			<field name="interval_type">days</field>
+			<field name="numbercall" eval="-1" />
+			<field name="doall" eval="True" />
+			<field name="model">trobz.sync.log</field>
+			<field name="function">_auto_del_log</field>
+			<field name="args" eval="()" />
+			<field name="priority" eval="6" />
+		</record>	
+	</data>
+</openerp>
